@@ -9,6 +9,7 @@ import { ActorLayout } from "./pages/actor/ActorLayout";
 import Loading from "./pages/exception/Loading";
 import JobList, { JobsLayout } from "./pages/job";
 import { JobDetailChartsPage } from "./pages/job/JobDetail";
+import { JobProfilerPage } from "./pages/job/Profiler";
 import {
   JobDetailActorDetailWrapper,
   JobDetailActorsPage,
@@ -212,11 +213,19 @@ const App = () => {
                       />
                       <Route
                         element={
-                          <SideTabPage tabId="actors">
-                            <JobDetailActorsPage />
+                          <SideTabPage tabId="charts">
+                            <JobDetailChartsPage />
                           </SideTabPage>
                         }
-                        path="actors"
+                        path=""
+                      />
+                      <Route
+                        element={
+                          <SideTabPage tabId="profilers">
+                            <JobProfilerPage />
+                          </SideTabPage>
+                        }
+                        path="profilers"
                       />
                     </Route>
                     <Route
