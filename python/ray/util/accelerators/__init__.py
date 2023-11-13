@@ -7,7 +7,8 @@ from ray.util.accelerators.accelerators import (
     NVIDIA_TESLA_P4,
     NVIDIA_TESLA_K80,
     NVIDIA_TESLA_A10G,
-    NVIDIA_A100,
+    NVIDIA_A100_40GB,
+    NVIDIA_A100_80GB,
     INTEL_MAX_1550,
     INTEL_MAX_1100,
     INTEL_GAUDI,
@@ -24,7 +25,8 @@ __all__ = [
     "NVIDIA_TESLA_P4",
     "NVIDIA_TESLA_K80",
     "NVIDIA_TESLA_A10G",
-    "NVIDIA_A100",
+    "NVIDIA_A100_40GB",
+    "NVIDIA_A100_80GB",
     "INTEL_MAX_1550",
     "INTEL_MAX_1100",
     "INTEL_GAUDI",
@@ -34,6 +36,7 @@ __all__ = [
     "GOOGLE_TPU_V4",
     # Deprecated
     "NVIDIA_TESLA_A100",
+    "NVIDIA_A100",
 ]
 
 

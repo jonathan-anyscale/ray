@@ -39,6 +39,20 @@ Blacklisted:     No
     with patch("builtins.open", mock_open(read_data=info_string)):
         assert NvidiaGPUAcceleratorManager.get_current_node_accelerator_type() == "T4"
 
+    info_string = """Model:           Ampere A100-SXM4-40GB
+IRQ:             107
+GPU UUID:        GPU-8eaaebb8-bb64-8489-fda2-62256e821983
+Video BIOS:      88.00.4f.00.09
+Bus Type:        PCIe
+DMA Size:        47 bits
+DMA Mask:        0x7fffffffffff
+Bus Location:    0000:00:1e.0
+Device Minor:    0
+Blacklisted:     No
+    """
+    with patch("builtins.open", mock_open(read_data=info_string)):
+        assert NvidiaGPUAcceleratorManager.get_current_node_accelerator_type() == "A100-40GB"
+
 
 if __name__ == "__main__":
     if os.environ.get("PARALLEL_CI"):

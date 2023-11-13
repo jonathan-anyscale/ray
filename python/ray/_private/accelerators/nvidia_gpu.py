@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 CUDA_VISIBLE_DEVICES_ENV_VAR = "CUDA_VISIBLE_DEVICES"
 NOSET_CUDA_VISIBLE_DEVICES_ENV_VAR = "RAY_EXPERIMENTAL_NOSET_CUDA_VISIBLE_DEVICES"
 
-# TODO(Alex): This pattern may not work for non NVIDIA Tesla GPUs (which have
-# the form "Tesla V100-SXM2-16GB" or "Tesla K80").
-NVIDIA_GPU_NAME_PATTERN = re.compile(r"\w+\s+([A-Z0-9]+)")
+# Regex to parse nvidia gpu name, match example:
+# Ampere A100-SXM4-40GB => [Ampere A100-SXM4-40GB, Ampere A100-SXM4-40GB, A100, 40GB]
+NVIDIA_GPU_NAME_PATTERN = re.compile(r"(\w+\s+([A-Z0-9]+(?:-[A-Z0-9]+)?))-?(\w+)?")
 
 
 class NvidiaGPUAcceleratorManager(AcceleratorManager):
@@ -111,7 +111,12 @@ class NvidiaGPUAcceleratorManager(AcceleratorManager):
         if name is None:
             return None
         match = NVIDIA_GPU_NAME_PATTERN.match(name)
-        return match.group(1) if match else None
+        gpu_model = match.group(2) if match else None
+        if match and gpu_model == "A100":
+            gpu_model += f"-{match.group(3)}"
+        from pdb import set_trace as bp
+        bp()
+        return gpu_model
 
     @staticmethod
     def validate_resource_request_quantity(
